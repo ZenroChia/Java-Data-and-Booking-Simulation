@@ -31,6 +31,15 @@ public class Ticket {
 	}
 	@Override
 	public String toString() {
-		return "";
+		String seatOccupied;
+		//Return "seat" is occupied if isOccupied is true
+		if (isOccupied) {
+			seatOccupied = " has already been taken";
+		}
+		//Return "seat" is not occupied if isOccupied is false
+		else
+			seatOccupied = " is available";
+		//Returns the actual string
+		return Character.toString(rowLetter) + seatNo + seatOccupied;
 	}
 }

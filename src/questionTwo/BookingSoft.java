@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
  * The Coursework specification is provided in Canvas. Please read through it in
  * full before you start work.
  * 
- * @author CHIA ZHEENG RONG
+ * @author CHIA ZHENG RONG
  */
 public class BookingSoft {
 	public static void main(String[] args) throws InterruptedException {
@@ -25,6 +25,7 @@ public class BookingSoft {
 		System.out.println("### Welcome to the Booking System ###\n");
 		// DO NOT CHANGE THE ABOVE PART OF THE CODE.
 		///////////////////////////////////////////////////////////////////////////////////
+		
 		while (true) {
 			System.out.println("Below are the 6 shows that will be offered tomorrow: " + '\n');
 			//Formats the string values as a single formatted string value, so that the printed string looks more organized
@@ -43,7 +44,6 @@ public class BookingSoft {
 				shows[i].printAvailability();
 				System.out.println();
 			}
-			
 			System.out.println();
 			Scanner scan = new Scanner(System.in);
 			//Asks user for a movie name
@@ -164,21 +164,28 @@ public class BookingSoft {
 				boolean occupied = shows[index].seatCheckAvailability(responseToCapital, seatNoResponse);
 				
 				//Continue looping if the selected seat by the user is occupied
-				if (occupied)
-					System.out.println('\n' + "Sorry, the seat that you chose has already been taken, please select a another seat. " + '\n' + "To avoid choosing an occupied seat, " + '\n' + "Please look at the detailed seat layout that will be provided below more carefully before you select your seat. ");
-				//Breaks the loop and print a confirmation message if the selected seat by the user is not occupied
+				if (occupied) {
+					System.out.print('\n' + "Sorry! Seat ");
+					shows[index].printSeatAvailability(responseToCapital, seatNoResponse);
+					System.out.println(", please select a another seat. " + '\n' + '\n' + "To avoid choosing an occupied seat, " + '\n' + "Please look at the detailed seat layout that will be provided below more carefully before you select your seat. ");
+				}
+				//Breaks the loop and print a booking confirmation message if the selected seat by the user is not occupied (available)
 				else {
+					System.out.print('\n' + "You got it! Seat ");
+					shows[index].printSeatAvailability(responseToCapital, seatNoResponse);
+					System.out.println("! Please wait while we book the seat for you....");
 					shows[index].buyTicket(responseToCapital, seatNoResponse);
 					System.out.println('\n' + "Congratulations! Your booking of seat " + responseToCapital + seatNoResponse + " is successful! " + '\n' + '\n');
 					break;
 				}
 			}
 			
+			
 			int occupied = 0;
 			//Loops through the shows array to see how many shows' venues are fully occupied
 			for (int i = 0; i < shows.length; i++) {
 				//Adds 1 to occupied variable if the show's venue is fully occupied
-				if (shows[i].availability()) 
+				if (shows[i].availability() == true) 
 					occupied += 1;
 				//Continue looping if the show's venue is not fully occupied
 				else

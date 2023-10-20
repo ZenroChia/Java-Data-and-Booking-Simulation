@@ -21,7 +21,7 @@ public class Film {
 		else
 			return "Night (9pm)";
 	}
-	//Method to get film title
+	//Method to get and return film title
 	public String getTitle() {
 		return filmTitle;
 	}

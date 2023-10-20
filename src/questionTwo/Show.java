@@ -24,6 +24,11 @@ public class Show {
 		return venueID.checkOccupied(rowIdx, (seatNo - 1));
 	}
 	
+	//Helper method to check and print out a message indicating if a seat is available or not
+	public void printSeatAvailability(char row, int seatNo) {
+		int rowIdx = Venue.rowLetter2Idx(row);
+		System.out.print(venueID.seatAvailabilityMessage(rowIdx, (seatNo - 1)));
+	}
 	//Prints out the layout of the hall with their respective seat location
 	public void printHall() {
 		int row = venueID.getNoRows();
@@ -69,10 +74,12 @@ public class Show {
 	public void printAvailability() {
 		boolean full = venueID.checkIfVenueIsFull();
 		if (full) {
-			System.out.println("The venue for film '" + filmName.getTitle() + "' is FULLY occupied, please DO NOT select this film. ");
+			//Formats the string detail to make the string bundle look more organized
+			System.out.printf("%-21s %-18s %-35s %-65s", "The venue for film: ", "'" + filmName.getTitle() + "'", " is FULLY OCCUPIED, ", "please DO NOT select this film. " + '\n');
 		}
 		else
-			System.out.println("The venue for film '" + filmName.getTitle() + "' is NOT FULLY occupied, please FEEL FREE to select this film. ");
+			//Formats the string detail to make the string bundle look more organized
+			System.out.printf("%-21s %-18s %-35s %-65s", "The venue for film: ", "'" + filmName.getTitle() + "'", " is STILL AVAILABLE for booking, ", "please FEEL FREE to select this film. " + '\n');
 	}
 	
 	//Helper methods to check if a venue is fully occupied or not, true if fully occupied; false if not fully occupied

@@ -120,6 +120,11 @@ public class Venue {
 	public static char rowIndex2Letter(int idx) {
 		return (char) (idx + 'A');
 	}
+	
+	//Helper method to return a String statement about the availability information of a seat
+	public String seatAvailabilityMessage(int rowIdx, int seatNo) {
+		return tickets[rowIdx][seatNo].toString();
+	}
 	@Override
 	public String toString() {
 		//Returns the show details
