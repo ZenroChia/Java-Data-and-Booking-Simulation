@@ -75,33 +75,41 @@ public class Venue {
 	public String getID() {
 		return id;
 	}
+	
 	public int getNoRows() {
 		return noRows;
 	}
+	
 	public int getNoCols() {
 		return noCols;
 	}
+	
 	public int getNumOfSeats() {
 		return noRows*noCols;
 	}
+	
 	//Helper getter method to return tickets array
 	public Ticket[][] getTickets() {
 		return tickets;
 	}
+	
 	//Method to book a seat 
 	public void bookASeat(int rowIdx, int seatNo) {
 		tickets[rowIdx][seatNo].setIsOccupied(true);
 		numOfSeatsOccupied += 1;
 		numOfTickets += 1;
 	}
+	
 	//Method to check if a seat is occupied
 	public boolean checkOccupied(int rowIdx, int seatNo) {
 		return tickets[rowIdx][seatNo].getIsOccupied();
 	}
+	
 	//Returns the layout dimension of the venue, e.g.: 7X7
 	public String seatVenueDisplay() {
 		return Integer.toString(noRows) + " X " + Integer.toString(noCols);
 	}
+	
 	//Method to check if venue is full, true if full; false if not full
 	public boolean checkIfVenueIsFull() {
 		if (numOfSeatsOccupied == getNumOfSeats()) 
@@ -109,6 +117,7 @@ public class Venue {
 		else
 			return false;
 	}
+	
 	// Note: this static method is given
 	// Converts row letter (char) to index number (int)
 	public static int rowLetter2Idx(char letter) {
@@ -125,6 +134,7 @@ public class Venue {
 	public String seatAvailabilityMessage(int rowIdx, int seatNo) {
 		return tickets[rowIdx][seatNo].toString();
 	}
+	
 	@Override
 	public String toString() {
 		//Returns the show details

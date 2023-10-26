@@ -51,6 +51,7 @@ public class AthleteAnalysis {
 			while (scn.hasNextLine()) {
 				//Reads the first line (information about the number of lines in the text) of the text file
 				if (count == -1) {
+					//"Scanner.delimiter(String Pattern);" concept referenced from "https://www.geeksforgeeks.org/scanner-usedelimiter-method-in-java-with-examples/" and "https://docs.oracle.com/javase/7/docs/api/java/util/Scanner.html#useDelimiter(java.lang.String)" on Wednesday, 18 October 2023
 					scn.useDelimiter(",");
 					int numInput = scn.nextInt();
 					//Defines the length of the 7 data arrays according to the number of lines in the text file 
@@ -65,12 +66,13 @@ public class AthleteAnalysis {
 					count += 1;
 					
 				}
+				//"Split string using a certain delimiter" referenced from "https://stackoverflow.com/questions/3481828/how-do-i-split-a-string-in-java" on Thursday, 19 October 2023 
 				//Reads the rest of the 20 lines in the text file containing athlete details and stores those athlete information into the 7 different data arrays 
 				else {
 					String line = scn.nextLine();
 					//Splits the values on the same line and stores these values as string values in the array i
 					String[] i = line.split(",");
-					//Retrieves String values from the array i and storing each value them into 7 different data arrays, converting value types whenever necassary
+					//Retrieves String values from the array i and storing each value them into 7 different data arrays, converting value types whenever necessary
 					name[count] = i[0];
 					gender[count] = i[1].charAt(0);
 					age[count] = Integer.parseInt(i[2]);
@@ -125,10 +127,12 @@ public class AthleteAnalysis {
 			for (int i = 1; i <= dataEntryNum; i++) {
 				System.out.println("Details of athlete " + i + ": ");
 				System.out.println();
+				
 				//User to enter athlete name
 				System.out.print("Plase enter the name of athlete " + i + ": ");
 				name[i - 1] = scan.nextLine();
 				System.out.println();
+				
 				//User to input athlete gender
 				System.out.print("Please enter the gender of athlete " + i + " (e.g.: m, f, M, F, male, female): ");
 				//Repeats until the correct format of gender is entered, i.e. m, f, M, F, male, female, ignoring case
@@ -145,6 +149,7 @@ public class AthleteAnalysis {
 						continue;
 					}
 				}
+				
 				//User to input athlete age
 				System.out.print("Please enter the age of athlete " + i + ": ");
 				//Repeats until positive whole number is entered
@@ -168,6 +173,7 @@ public class AthleteAnalysis {
 						scan.nextLine();
 					}
 				}
+				
 				//User to input athlete height
 				System.out.print("Please enter the height of athlete " + i + ": ");
 				//Repeats until positive number is entered
@@ -190,6 +196,7 @@ public class AthleteAnalysis {
 						scan.nextLine();
 					}
 				}
+				
 				//User to input athlete weight
 				System.out.print("Please enter the weight of athlete " + i + ": ");
 				//Repeats until a positive number is entered 
@@ -213,11 +220,13 @@ public class AthleteAnalysis {
 						scan.nextLine();
 					}
 				}
+				
 				//User to input the athlete sport
 				System.out.print("Please enter what kind of sports does athlete " + i + " play: ");
 				String sportResponse = scan.nextLine();
 				sport[i - 1] = ((sportResponse.substring(0, 1)).toUpperCase() + (sportResponse.substring(1)).toLowerCase());
 				System.out.println();
+				
 				//User to input the type of medal obtained by athlete
 				System.out.print("Please enter the medal type obtained by athlete " + i + " (Gold, Silver or Bronze only): ");
 				//Repeats until a 0 or positive whole number is entered
@@ -275,6 +284,7 @@ public class AthleteAnalysis {
 			else
 				female += 1;
 		}
+		
 		//Calculates the gender ratio
 		double ratio = male/female;
 		//prints out the gender ratio
@@ -339,7 +349,6 @@ public class AthleteAnalysis {
 			double meanMale = maleDoubleSum/male;
 			return meanMale; 
 		}
-			
 		else {
 			double meanFemale = femaleDoubleSum/female;
 			return meanFemale;
@@ -387,8 +396,6 @@ public class AthleteAnalysis {
 		}
 	}
 	
-	
-	//Method for calculating and returning the Standard Deviation of the double data of male or female athletes in the data set, gen = 'M' for male and 'F' for female
 	//Method for calculating and returning the Standard Deviation of the double data of male or female athletes in the data set, gen = 'M' for male and 'F' for female
 	static double standardD(double[] doubleData, char[] gender, char gen) {
 		double meanMale = 0;
@@ -409,8 +416,7 @@ public class AthleteAnalysis {
 			if (gender[i] == 'M') {
 				maleSDSum += ((doubleData[i] - meanMale)*(doubleData[i] - meanMale));
 				male += 1;
-			}
-				
+			}	
 			//Gets the sum of the ((female double value - female double data mean)^2) for every female double value and the sum of females in the gender array
 			else {
 				femaleSDSum += ((doubleData[i] - meanFemale)*(doubleData[i] - meanFemale));
@@ -428,9 +434,7 @@ public class AthleteAnalysis {
 			return femaleSD;
 		}
 	}
-	//Method for calculating the mean and standard deviation of the age for each gender
 	
-	//Method to determine the oldest male and female athlete in the data set
 	//Method for determining and indicating the name and age of the oldest athlete for each gender
 	static void oldestAthlete(char[] gender, String[] name, int[] age) {
 		//Loops through the gender and age array 
@@ -481,9 +485,8 @@ public class AthleteAnalysis {
 		}
 		System.out.println();
 	}
-	//Method for determining and indicating the name and age of the youngest athlete for each gender
 	
-	//Method to determine the youngest male and female athlete in the data set
+	//Method for determining and indicating the name and age of the youngest athlete for each gender
 	static void youngestAthlete(char[] gender, String[] name, int[] age) {
 		//Loops through the gender and age array 
 		int maleAge = Integer.MAX_VALUE;
@@ -535,7 +538,6 @@ public class AthleteAnalysis {
 	}
 	
 	//Method to calculate and print out details about the number of unique sports in the sport array of the data set
-	//Method to calculate the number of unique sports in the data and print it out 
 	static void uniqueSports(String[] sport) {
 		//Creates an array with the same length as the number of data entries
 		String[] uniqueSport = new String[sport.length];
@@ -567,6 +569,7 @@ public class AthleteAnalysis {
 				
 			}
 		}
+		
 		//Loops through the uniqueSport array and counts the number of unique sports in the array
 		int uniqueCounter = 0;
 		for (String i : uniqueSport) {
@@ -575,12 +578,12 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Prints out the number of unique sports that are available in the data
 		System.out.println("There are " + uniqueCounter + " unique sports availabale in the data");
 	}
 	
 	//Method to create and return the array containing all the unique sports in the sport array of the data set
-	//Method to create and return an array that contains only unique sports in it
 	static String[] uniqueSportsArray(String[] sport) {
 		//Creates an array with the same length as the number of data entries
 		String[] uniqueSport = new String[sport.length];
@@ -612,6 +615,7 @@ public class AthleteAnalysis {
 				
 			}
 		}
+		
 		//Loops through the uniqueSport array and counts the number of unique sports in the array
 		int uniqueCounter = 0;
 		for (String i : uniqueSport) {
@@ -620,11 +624,13 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Creates a new array "uniqueSportUpdated" containing only unique sports in it 
 		String[] uniqueSportUpdated = new String[uniqueCounter];
 		for (int i = 0; i < uniqueSportUpdated.length; i++) {
 			uniqueSportUpdated[i] = uniqueSport[i];
 		}
+		
 		//Returns the uniqueSportUpdated array 
 		return uniqueSportUpdated;
 	}
@@ -666,6 +672,7 @@ public class AthleteAnalysis {
 			}
 				
 		}
+		
 		//Prints out the number of gold, silver and bronze medals obtained by male and female athletes respectively 
 		System.out.println("There are " + maleGold + " gold medal(s), " + maleSilver + " silver medal(s), " + maleBronze + " bronze medal(s) obtained by male athletes in the data in all sports");
 		System.out.println("There are " + femaleGold + " gold medal(s), " + femaleSilver + " silver medal(s), " + femaleBronze + " bronze medal(s) obtained by female athletes in the data in all sports");
@@ -676,6 +683,7 @@ public class AthleteAnalysis {
 	static void genderInEachSportMedalNum(char[] gender, String[] sport, String[] medal) {
 		//Creates an array "uniqueSport" that stores only the unique sports available 
 		String[] uniqueSport = uniqueSportsArray(sport);
+		
 		//Loops through the uniqueSport array
 		for (String i : uniqueSport) {
 			int maleGold = 0;
@@ -713,6 +721,7 @@ public class AthleteAnalysis {
 				else
 					continue;
 			}
+			
 			//Prints out the each medal obtained by each gender in each sport
 			System.out.println("The medals obtained by male athletes in " + i + " are: " + '\n' + maleGold + " gold medal(s); " + '\n' + maleSilver + " silver medal(s); " + '\n' + maleBronze + " bronze medal(s)" + '\n');
 			System.out.println("The medals obtained by female athletes in " + i + " are: " + '\n' + femaleGold + " gold medal(s); " + '\n' + femaleSilver + " silver medal(s); " + '\n' + femaleBronze + " bronze medal(s)" + '\n');
@@ -730,6 +739,7 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Determines if the age lengths in the age array is longer than 3, if yes, assigns the new longest age length into ageLength
 		int ageLength = 3;
 		for (int i : age) {
@@ -738,6 +748,7 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Determines if the height lengths in the length array is longer than 3, if yes, assigns the new longest height length into heightLength
 		int heightLength = 6;
 		for (double i : height) {
@@ -747,6 +758,7 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Determines if the weight lengths in the weight array is longer than 3, if yes, assigns the new longest weight length into weightLength
 		int weightLength = 6;
 		for (double i : weight) {
@@ -756,6 +768,7 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Determines if the sport lengths in the sport array is longer than 3, if yes, assigns the new longest sport length into sportLength
 		int sportLength = 5;
 		for (String i : sport) {
@@ -764,6 +777,7 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
 		//Determines if the medal lengths in the medal array is longer than 3, if yes, assigns the new longest medal length into medalLength
 		int medalLength = 5;
 		for (String i : medal) {
@@ -772,6 +786,9 @@ public class AthleteAnalysis {
 			else
 				continue;
 		}
+		
+		//"Restricting double value's decimal place to 2 decimal places while formatting the double value to become a string value" concept referenced fromm "https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Format-double-Java-printf-example#:~:text=Just%20use%20%25.2f%20as%20the,!%22%2C%20Math.PI)%3B" on Wednesday, 18 October 2023
+		//"Formatting strings" concept referenced from "https://www.javatpoint.com/java-string-format", "https://blog.udemy.com/java-format-string/" and "https://examples.javacodegeeks.com/string-format-java-example/" on Wednesday, 18 October 2023
 		//Formats the string value so that it is left aligned within a nameLength-character field 
 		String formatName = String.format("%-" + nameLength + "s", "Name");
 		//Formats the string value so that it is left aligned within 6-character field 
@@ -788,8 +805,10 @@ public class AthleteAnalysis {
 		String formatMedal = String.format("%-" + medalLength + "s",  "Medal");
 		System.out.println("The details of the athletes are as follows: ");
 		System.out.println();
+		
 		//Prints out the string values as a table format
 		System.out.println("|" + formatName + "|" + formatGender + "|" + formatAge + "|" + formatHeight + "|" + formatWeight + "|" + formatSport + "|" + formatMedal + "|");
+		
 		//Formats the string value so that it is left aligned within a nameLength-character field 
 		formatName = String.format("%-" + nameLength + "s", " ");
 		//Formats the string value so that it is left aligned within 6-character field 
@@ -804,8 +823,10 @@ public class AthleteAnalysis {
 		formatSport = String.format("%-" + sportLength + "s",  " ");
 		//Formats the string value so that it is left aligned within a medalLength-character field 
 		formatMedal = String.format("%-" + medalLength + "s",  " ");
+		
 		//Prints out the string values as a table format
 		System.out.println("|" + formatName + "|" + formatGender + "|" + formatAge + "|" + formatHeight + "|" + formatWeight + "|" + formatSport + "|" + formatMedal + "|");
+		
 		//Loops through all the arrays storing the athlete's details 
 		for (int i = 0; i < gender.length; i++) {
 			//Formats the string value so that it is left aligned within a nameLength-character field 
@@ -822,6 +843,7 @@ public class AthleteAnalysis {
 			String formSport = String.format("%-" + sportLength + "s",  sport[i]);
 			//Formats the string value so that it is left aligned within a medalLength-character field 
 			String formMedal = String.format("%-" + medalLength + "s",  medal[i]);
+			
 			//Prints out the values found within the same index location of the arrays in a table format
 			System.out.println("|" + formName + "|" + formGender + "|" + formAge + "|" + formHeight + "|" + formWeight + "|" + formSport + "|" + formMedal + "|");
 		}

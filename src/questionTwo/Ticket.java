@@ -19,16 +19,20 @@ public class Ticket {
 	public char getRowLetter() {
 		return rowLetter;
 	}
+	
 	public int getSeatNo() {
 		return seatNo;
 	}
+	
 	public boolean getIsOccupied() {
 		return isOccupied;
 	}
+	
 	//Setter method for isOccupied
 	public void setIsOccupied(boolean isOccupied) {
 		this.isOccupied = isOccupied;
 	}
+	
 	@Override
 	public String toString() {
 		String seatOccupied;

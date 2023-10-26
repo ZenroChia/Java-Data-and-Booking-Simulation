@@ -27,7 +27,7 @@ public class BookingSoft {
 		///////////////////////////////////////////////////////////////////////////////////
 		
 		while (true) {
-			System.out.println("Below are the 6 shows that will be offered tomorrow: " + '\n');
+			System.out.println("Below are the 6 shows that will be offered tomorrow: " + '\n' + '\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
 			//Formats the string values as a single formatted string value, so that the printed string looks more organized
 			String formattedString = String.format("%-17s %-18s %-21s", "MOVIE NAME", "SCREENING TIME", "SCREENING LOCATION");
 			//prints out all the available shows and their screening times as well as locations in an organized way 
@@ -37,8 +37,9 @@ public class BookingSoft {
 				System.out.println(shows[i].locationInfo());
 			}
 			
+			System.out.println("**************************************************************************************************************************************************************************************************************************************************************************************************************");
 			//Informs the user of which venue is still available for booking or otherwise 
-			System.out.println('\n' + "IMPORTANT: " + '\n' + "Please note that: " + '\n');
+			System.out.println('\n' + "*****IMPORTANT*****" + '\n' + "Please note that: " + '\n');
 			//Loops through the shows array and print out all the shows' availability for booking 
 			for (int i = 0; i < shows.length; i++) {
 				shows[i].printAvailability();
@@ -46,6 +47,7 @@ public class BookingSoft {
 			}
 			System.out.println();
 			Scanner scan = new Scanner(System.in);
+			System.out.println("**************************************************************************************************************************************************************************************************************************************************************************************************************" + '\n');
 			//Asks user for a movie name
 			System.out.print("Please enter the name of the movie that you want to watch (ENTER MOVIE NAMES FROM THE LIST ONLY): ");
 			//Checks if the user has entered a correct movie name from the list
@@ -81,10 +83,12 @@ public class BookingSoft {
 			
 			//Restart the main loop if the venue of the show selected by the user is fully occupied
 			if (shows[index].availability()) {
-				System.out.print('\n' + "The venue of your selected film is fully occupied, please try selecting other films that are still available (venue not occupied)");
+				System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
+				System.out.println('\n' + "The venue of your selected film is fully occupied, please try selecting other films that are still available (venue not occupied). " + '\n');
 				continue;
 			}
 			
+			System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
 			//Prints out the details of the selected movie by the user
 			System.out.println('\n' + "Details of the movie that you selected: " + '\n' + '\n' + shows[index].toString());
 			shows[index].printHall();
@@ -95,14 +99,15 @@ public class BookingSoft {
 			char responseToCapital = 'A';
 			int seatNoResponse = 0;
 			while (true) {
+				System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
 				//Shows a more detailed seat layout that indicates occupied seat(s)
 				System.out.println('\n' + "Below is the seat layout display showing any occupied seats for the movie of your interest (if any): ");
 				shows[index].printHallWithOccupiedSeats();
 				
-				//Asks user to select a vacant seat in the hall
-				System.out.println('\n' + "The seats that are marked with 'XX' inidcates that they have already been occupied. " + '\n' + "Please enter a Row Letter followed by a Seat Number of your preferred seat that you want to book: " + '\n');
+				//Asks user to select a vacant seat in the hall, or enter 0 to quit booking 
+				System.out.println('\n' + "The seats that are marked with 'XX' inidcates that they have already been occupied. " + '\n' + "Please enter a Row Letter followed by a Seat Number of your preferred seat that you want to book (enter 0 to quit booking): " + '\n');
 				//Asks user to input Row Letter
-				System.out.print("Please enter the Row Letter (ONLY 'A'-'" + maxLetter + "') : ");
+				System.out.print("Please enter the Row Letter (ONLY 'A'-'" + maxLetter + "', or enter 0 to quit booking) : ");
 				
 				//Loop to check if the user only enters characters from 'A' to max Row Letter in the hall 
 				while (true) {
@@ -110,7 +115,7 @@ public class BookingSoft {
 					//Continue looping if user input more than 1 letter
 					if (rowResponse.length() > 1) {
 						System.out.println("Error: Cannot accept more than 1 letters");
-						System.out.print("Please enter only ONE letter (Row Letter of your preferred seat from 'A' to '" + maxLetter + "'): ");
+						System.out.print("Please enter only ONE letter (Row Letter of your preferred seat from 'A' to '" + maxLetter + "', or enter 0 to quit booking): ");
 					}
 					//Checks if the single letter input by user is a letter from 'A' to the max Row Letter in the hall
 					else {
@@ -126,57 +131,112 @@ public class BookingSoft {
 								System.out.print("Please enter a single letter character (Row Letter of your preferred seat from only 'A' to '" + maxLetter + "'): ");
 							}
 						}
-						//Continue looping if the single letter input by user is not a letter character
+						//Checks if the single letter input by user (which is not a letter character) is a 0 or not 
 						else {
-							System.out.println("Error: Cannot accept characters other than letter characters");
-							System.out.print("Please enter a single LETTER character (Row Letter of your preferred seat from 'A' to '" + maxLetter + "'): ");
+							//Breaks the seat booking loop if the single letter input by user is a 0
+							if (responseToCapital == '0') {
+								break;
+							}
+							//Continue looping if the single letter input by user is not a 0
+							else {
+								System.out.println("Error: Cannot accept characters other than letter characters");
+								System.out.print("Please enter a single LETTER character (Row Letter of your preferred seat from 'A' to '" + maxLetter + "', or enter 0 to quit booking): ");
+							}
+							
 						}
 					}
 					
 				}
 				
-				//Asks user to input Seat Number
-				System.out.print('\n' + "Please enter the Seat Number of your preferred seat (1-" + shows[index].colNum() + "): ");
+				//Breaks the seat booking loop if user input is 0
+				if (responseToCapital == '0')
+					break;
 				
-				//Loops to check if the user input is of a correct value type (integer) and ranges between 1 to the maximum seat number in the hall  
+				//Asks user to input Seat Number, or enter 0 to quit booking 
+				System.out.print('\n' + "Please enter the Seat Number of your preferred seat (1-" + shows[index].colNum() + ", or enter 0 to quit booking): ");
+				
+				//Loop to check if the user input is of a correct value type (integer) and ranges between 1 to the maximum seat number in the hall  
 				while (true) {
 					//Try-catch block to catch any wrong input value type by the user
 					try {
 						seatNoResponse = scan.nextInt();
 						scan.nextLine();
+						//Breaks the loop if user input is a 0
+						if (seatNoResponse == 0)
+							break;
 						//Breaks the loop if the integer user input ranges from 1 to the maximum seat number in the hall
-						if (seatNoResponse >= 1 && seatNoResponse <= shows[index].colNum()) 
+						else if (seatNoResponse >= 1 && seatNoResponse <= shows[index].colNum()) 
 							break;
 						//Continue looping if the integer user input is not from range 1 to the maximum seat number in the hall
 						else {
 							System.out.println("Error: Seat Number cannot be smaller than 1 or cannot exceed the maximum seat number available in the hall");
-							System.out.print("Please enter a positive whole number (Seat Number of your preferred choice) ranging only from 1 to " + shows[index].colNum() + ": ");
+							System.out.print("Please enter a positive whole number (Seat Number of your preferred choice) ranging only from 1 to " + shows[index].colNum() + ", or enter 0 to quit booking: ");
 						}
 							
 					}catch (InputMismatchException e) {
 						System.out.println("Error: input value type not recognized");
-						System.out.print("Please enter a positive whole number (Seat Number of your preferred choice) ranging from 1 to " + shows[index].colNum() + ": ");
+						System.out.print("Please enter a positive whole number (Seat Number of your preferred choice) ranging from 1 to " + shows[index].colNum() + ", or enter 0 to quit booking: ");
 						scan.nextLine();
 					}
 				}
+				
+				//Breaks the seat booking loop if user input is a 0
+				if (seatNoResponse == 0) 
+					break;
 				
 				//Checks if the selected seat by the user is occupied or not 
 				boolean occupied = shows[index].seatCheckAvailability(responseToCapital, seatNoResponse);
 				
 				//Continue looping if the selected seat by the user is occupied
 				if (occupied) {
+					System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
 					System.out.print('\n' + "Sorry! Seat ");
 					shows[index].printSeatAvailability(responseToCapital, seatNoResponse);
 					System.out.println(", please select a another seat. " + '\n' + '\n' + "To avoid choosing an occupied seat, " + '\n' + "Please look at the detailed seat layout that will be provided below more carefully before you select your seat. ");
 				}
 				//Breaks the loop and print a booking confirmation message if the selected seat by the user is not occupied (available)
 				else {
+					System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
 					System.out.print('\n' + "You got it! Seat ");
 					shows[index].printSeatAvailability(responseToCapital, seatNoResponse);
 					System.out.println("! Please wait while we book the seat for you....");
 					shows[index].buyTicket(responseToCapital, seatNoResponse);
-					System.out.println('\n' + "Congratulations! Your booking of seat " + responseToCapital + seatNoResponse + " is successful! " + '\n' + '\n');
-					break;
+					System.out.println('\n' + "Congratulations! Your booking of seat " + responseToCapital + seatNoResponse + " is successful! " + '\n' + '\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
+					
+					//Asks user if he or she wants to continue buying tickets of the same movie 
+					System.out.print('\n' + "Do you want to continue booking tickets for the same movie? ('Y'/'Yes'/'N'/'No'): ");
+					
+					//Check if the user response is of "Yes" or "No" or "N" or "Y" only
+					String continueResponse;
+					while (true) {
+						continueResponse = scan.nextLine();
+						//Breaks the loop if user response is of "Yes" or "No" or "N" or "Y"
+						if (continueResponse.toUpperCase().equals("Y") || continueResponse.toUpperCase().equals("YES") || continueResponse.toUpperCase().equals("N") || continueResponse.toUpperCase().equals("NO")) 
+							break;
+						//Continue looping if user response is not of "Yes" or "No" or "N" or "Y"
+						else {
+							System.out.println("Error: cannot accept inputs other than 'Y' or 'Yes' or 'N' or 'No'");
+							System.out.print("Please enter 'Y' or 'Yes' only if you wish to continue booking tickets of the same movie or enter 'N' or 'No' only if otherwise: ");
+						}
+					}
+					
+					//Continues the seat booking loop if user input is "Y" or "Yes"
+					if (continueResponse.toUpperCase().equals("Y") || continueResponse.toUpperCase().equals("YES")) {
+						//Breaks the seat booking loop if the venue for the movie is fully booked
+						if (shows[index].availability()) {
+							System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************");
+							System.out.println('\n' + "Sorry! The venue for this movie is fully booked! ");
+							break;
+						}
+						//Continues the seat booking loop if the venue for the movie is not fully booked (still available)
+						else
+							continue;
+					}
+					//Prints out a thank you message and breaks the seat booking loop if user input is "N" or "No"
+					else {
+						System.out.println('\n' + "Thank you for your seat booking! ");
+						break;
+					}
 				}
 			}
 			
@@ -184,8 +244,8 @@ public class BookingSoft {
 			int occupied = 0;
 			//Loops through the shows array to see how many shows' venues are fully occupied
 			for (int i = 0; i < shows.length; i++) {
-				//Adds 1 to occupied variable if the show's venue is fully occupied
-				if (shows[i].availability() == true) 
+				//Adds 1 to occupied variable if the show's venue is fully occupied (true)
+				if (shows[i].availability()) 
 					occupied += 1;
 				//Continue looping if the show's venue is not fully occupied
 				else
@@ -199,7 +259,9 @@ public class BookingSoft {
 			}
 			//Continue looping if not all the show's venues are fully occupied, i.e. not all 6 shows' venues are fully occupied
 			else {
-				System.out.println("### Welcome to the Booking System ###\n");
+				System.out.println('\n');
+				System.out.println('\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************" + '\n' + "**************************************************************************************************************************************************************************************************************************************************************************************************************" + '\n' + '\n');
+				System.out.println('\n' + "### Welcome to the Booking System ###\n");
 				continue;
 			}
 			

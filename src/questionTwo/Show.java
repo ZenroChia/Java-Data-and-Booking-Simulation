@@ -29,6 +29,7 @@ public class Show {
 		int rowIdx = Venue.rowLetter2Idx(row);
 		System.out.print(venueID.seatAvailabilityMessage(rowIdx, (seatNo - 1)));
 	}
+	
 	//Prints out the layout of the hall with their respective seat location
 	public void printHall() {
 		int row = venueID.getNoRows();
@@ -40,7 +41,7 @@ public class Show {
 				String rowLetter = Character.toString(((venueID.getTickets())[i][j]).getRowLetter());
 				int seatNo = ((venueID.getTickets())[i][j]).getSeatNo();
 				//Prints out the current rowLetter and seatNo combined with a space after that 
-				System.out.print(rowLetter + seatNo + " ");
+				System.out.print("[ " + rowLetter + seatNo + " ]  ");
 			}
 			System.out.println();
 		}
@@ -55,14 +56,14 @@ public class Show {
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
 				if (((venueID.getTickets())[i][j]).getIsOccupied()) {
-					System.out.print("XX ");
+					System.out.print("[ XX ]  ");
 				}
 				else {
 					//Converts the rowLetter and seatNo of the current Ticket class object into String and integer
 					String rowLetter = Character.toString(((venueID.getTickets())[i][j]).getRowLetter());
 					int seatNo = ((venueID.getTickets())[i][j]).getSeatNo();
 					//Prints out the current rowLetter and seatNo combined with a space after that 
-					System.out.print(rowLetter + seatNo + " ");
+					System.out.print("[ " + rowLetter + seatNo + " ]  ");
 				}
 				
 			}
@@ -70,6 +71,7 @@ public class Show {
 		}
 	}
 	
+	//"Formatting strings" concept referenced from "https://www.javatpoint.com/java-string-format", "https://blog.udemy.com/java-format-string/" and "https://examples.javacodegeeks.com/string-format-java-example/" on Wednesday, 18 October 2023
 	//Prints if a venue is fully occupied or not 
 	public void printAvailability() {
 		boolean full = venueID.checkIfVenueIsFull();
@@ -87,6 +89,7 @@ public class Show {
 		return venueID.checkIfVenueIsFull();
 	}
 	
+	//"Formatting strings" concept referenced from "https://www.javatpoint.com/java-string-format", "https://blog.udemy.com/java-format-string/" and "https://examples.javacodegeeks.com/string-format-java-example/" on Wednesday, 18 October 2023
 	//Gets and returns the venue location and its screening information 
 	public String locationInfo() {
 		//Formats the string values and return them as a formatted string value
@@ -103,6 +106,7 @@ public class Show {
 		return venueID.getNoCols();
 	}
 	
+	//"Formatting strings" concept referenced from "https://www.javatpoint.com/java-string-format", "https://blog.udemy.com/java-format-string/" and "https://examples.javacodegeeks.com/string-format-java-example/" on Wednesday, 18 October 2023
 	@Override
 	public String toString() {
 		//returns the show details
